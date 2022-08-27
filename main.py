@@ -55,7 +55,7 @@ class User(UserMixin, db.Model):
 class Task(db.Model):
     __tablename__ = "Tasks"
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
-    owner_id = db.Column(db.Integer, db.ForeignKey("Users.id"))
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # Create reference to the User object, the "tasks" refers to the tasks property in the User class.
     owner = relationship("User", back_populates="tasks")
 
