@@ -1,0 +1,74 @@
+{% include "header.html" %}
+<!-- Main -->
+<div class="row">
+<!--    To Do Block -->
+    <div class="card text-bg-light mx-auto mt-3 lg-4" style="max-width: 30rem;">
+        <div class="card-header">To Do</div>
+        <div class="card-body">
+            <h5 class="card-title">Undone Tasks</h5>
+
+            {% for task in tasks %}
+            {% if task.owner_id == current_user.id and task.category == "To Do" %}
+            <span id="drag1" class="card-text" draggable="true" ondragstart="drag(event)">
+                {{ task.name }}
+                <a class="update_button" href="{{url_for('update_task', task_id=task.id) }}">      💪</a>
+
+                <br>
+            </span>
+            {% endif %}
+            {% endfor %}
+
+            {% if not current_user.is_authenticated %}
+            <p class="card-text">
+                To use the Task Organizer you need to Login first
+            </p>
+            {% else %}
+
+            <form class="todo-form row" method="POST" action="/add">
+                <input class="form-control" type="text" id="Todo-task" name="task" placeholder="Enter your Task"
+                       required>
+                <button id="Todo-button" onclick="">Button</button>
+            </form>
+            {% endif %}
+
+        </div>
+    </div>
+
+<!--    Doing Block -->
+    <div class="card text-bg-primary mx-auto mt-3 lg-4" style="max-width: 30rem;">
+        <div class="card-header">DOING</div>
+        <div class="card-body">
+            <h5 class="card-title">Working at the moment</h5>
+            <div id="div1-droppable" ondrop="drop(event)" ondragover="allowDrop(event)">
+                {% for task in tasks %}
+                {% if task.owner_id == current_user.id and task.category == "DOING" %}
+                {{ task.name }}
+                <a class="update_button" href="{{url_for('update_task', task_id=task.id) }}"> 😊</a>
+                <br>
+
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+<!--    Done Block -->
+    <div class="card text-bg-success mx-auto mt-3 lg-4" style="max-width: 30rem;">
+        <div class="card-header">DONE</div>
+        <div class="card-body">
+            <h5 class="card-title">Tasks already done</h5>
+            <div id="div2-droppable" ondrop="drop(event)" ondragover="allowDrop(event)">
+                {% for task in tasks %}
+                {% if task.owner_id == current_user.id and task.category == "DONE" %}
+                {{ task.name }}
+                <a class="delete-button" href="{{url_for('delete_task', task_id=task.id) }}">❌</a>
+                <br>
+
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% include "footer.html" %}
