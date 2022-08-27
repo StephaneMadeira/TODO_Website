@@ -75,8 +75,7 @@ class Task(db.Model):
 @app.route('/')
 def home():
     # Pull all tasks from the database
-    all_tasks = Task.query.order_by(Task.owner_id).all()
-    db.session.commit()
+    all_tasks = Task.query.all()
     return render_template("index.html", current_user=current_user, tasks = all_tasks)
 
 
