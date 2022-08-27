@@ -38,7 +38,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 class User(UserMixin, db.Model):
-    __tablename__ = "Users"
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
@@ -53,7 +53,7 @@ class User(UserMixin, db.Model):
         return f'<User {self.name}>'
 
 class Task(db.Model):
-    __tablename__ = "Tasks"
+    __tablename__ = "tasks"
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # Create reference to the User object, the "tasks" refers to the tasks property in the User class.
