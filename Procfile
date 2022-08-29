@@ -1,2 +1,2 @@
-release: python manage.py migrate
+release: python main.py migrate
 web: gunicorn main:app
