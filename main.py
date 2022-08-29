@@ -54,14 +54,16 @@ class User(UserMixin, db.Model):
 
 class Task(db.Model):
     __tablename__ = "tasks"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False, unique=True)
+    category = db.Column(db.String(6), nullable=False, default="To Do")
+
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # Create reference to the User object, the "tasks" refers to the tasks property in the User class.
     owner = relationship("User", back_populates="tasks")
 
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(250), nullable = False, unique = True)
-    category = db.Column(db.String(6), nullable = False, default = "To Do")
 
     # Optional: this will allow each task object to be identified by its name when printed.
     def __repr__(self):
