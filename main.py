@@ -46,7 +46,7 @@ class User(UserMixin, db.Model):
     # *******Add parent relationship******* #
     # This will act like a List of Tasks objects attached to each User.
     # The "owner" refers to the owner property in the Tasks class.
-    tasks = relationship("Task", back_populates="owner")
+    user_tasks = relationship("Task", back_populates="owner")
 
     # Optional: this will allow each task object to be identified by its name when printed.
     def __repr__(self):
@@ -61,8 +61,8 @@ class Task(db.Model):
 
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # Create reference to the User object, the "tasks" refers to the tasks property in the User class.
-    owner = relationship("User", back_populates="tasks")
+    # Create reference to the User object, the "user_tasks" refers to the tasks property in the User class.
+    owner = relationship("User", back_populates="user_tasks")
 
 
     # Optional: this will allow each task object to be identified by its name when printed.
