@@ -18,13 +18,13 @@ app.config['SECRET_KEY'] = os.getenv("Flask_KEY")
 
 # ------------- Connect to Database -------------------------#
 # rest of connection code using the connection string `uri`
-if os.environ.get('DATABASE_URL') is None:
+if os.getenv('DATABASE_URL') is None:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
 else:
-    uri = os.environ.get('DATABASE_URL')
-    if uri.startswith("postgres://"):
-        uri = uri.replace("postgres://", "postgresql://", 1)
-    app.config["SQLALCHEMY_DATABASE_URI"] = uri
+    URI = os.getenv('DATABASE_URL')
+    if URI.startswith("postgres://"):
+        URI = URI.replace("postgres://", "postgresql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = URI
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -173,4 +173,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
