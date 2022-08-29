@@ -71,7 +71,7 @@ class Task(db.Model):
 
 
 # Just use when creating the tables
-db.create_all()
+# db.create_all()
 
 
 @app.route('/')
